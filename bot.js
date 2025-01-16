@@ -29,12 +29,14 @@ client.on("messageCreate", async (message) => {
     if (message.channel.id === SOURCE_CHANNEL_ID) {
       if (message.embeds.length > 0 && message.embeds[0].data?.description) {
         const description = message.embeds[0].data.description;
-        const regex = /\n\n`[A-Za-z0-9]+(?:pump)?`\n/g;
-
+        console.log(description)
+        const regex = /`[A-Za-z0-9]+(?:pump)?`/g;
         const matches = description.match(regex);
         if (matches && matches.length > 0) {
           const targetChannel = client.channels.cache.get(TARGET_CHANNEL_ID);
+          console.log(matches[0])
           if (targetChannel && matches[0]) {
+            //   await targetChannel.send(match);
                 sendMessageAs(matches[0]);
           } else {
             console.error("Target channel not found");
